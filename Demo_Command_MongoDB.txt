@@ -1,0 +1,98 @@
+Show dbs
+Use youtube
+Show dis
+db.createCollection("books")
+show.collections()
+
+db.books.insert({"id":1,"title":"Machine Learning"})
+db.books.insert({"id":2,"title":"Operating System","review":5})
+db.books.insert(
+[
+ {"id": 3, "title" : "IDS", "tags": ["Data Science"],"review": 3},
+ {"id": 4, "title" : "Data Analytics", "review": 5},
+ {"id": 5, "title" : "Big Data System", "review": 4},
+ {"id": 6, "title" : "", "tags" : [ "Cloud", "prog" ], "review" : 5 },
+ {"id": 7, "title" : "  ", "tags" : [ "Cloud", "prog" ], "review" : 1 },
+ {"id": 8, "tags" : [ "NA" ], "review" : 2 }
+ ]
+)
+
+db.books.find()
+db.getCollection("books").find()
+db.books.find().preety()
+db.books.find().limit(3)
+db.books.find().limit(1).pretty()
+
+db.books.find({"id":3})
+db.books.find({"id":{"$eq":3}})
+db.books.find({"id":{"$gt":3}})
+
+db.books.find({},{"title":1,"review":1})
+db.books.find({},{"title":1,"review":1,"_id":0})
+db.books.find({"id": {"$gt":3}}, {"id":1,"title":1})
+db.books.find({"id": {"$gt":3}}, {"id":1,"title":1,"_id":0})
+
+
+
+db.books.find({"id":3})
+db.books.update({"id":3},{$set: {"review":4}})
+db.books.find({"id":3})
+
+db.books.find()
+db.books.remove({"review":5})
+db.books.find()
+db.books.deleteMany({"id":3})
+Db.books.drop()
+Show collections
+
+
+db.books.insert(
+[
+ {"id": 1, "title" : "DL", "tags": ["Data Science","Deep Learning"],"review": 1},
+ {"id": 2, "title" : "Machine Larning", "review": 5},
+ {"id": 3, "title" : "IDS", "tags": ["Data Science"],"review": 3},
+ {"id": 4, "title" : "Data Analytics", "review": 5},
+ {"id": 5, "title" : "Big Data System", "review": 4},
+ {"id": 6, "title" : "", "tags" : [ "Cloud", "prog" ], "review" : 5 },
+ {"id": 7, "title" : "  ", "tags" : [ "Cloud", "prog" ], "review" : 1 },
+ {"id": 8, "tags" : [ "NA" ], "review" : 2 }
+ ]
+)
+db.books.find()
+
+db.books.find().sort({"review":1})
+db.books.find().sort({"review":-1})
+
+
+Open new terminal
+(base) Binods-MacBook-Pro:MongoDB_Binod binod$ mongoimport --type csv -d exam -c ceo --headerline --drop sample_data.csv 
+
+
+db.ceo.count()
+db.ceo.distinct("state").length;
+db.ceo.distinct("state")
+
+db.ceo.find({"street code1":0}).count()  
+db.ceo.find({"street code2":0}).count()  
+db.ceo.find({"course code":0}).count()  
+db.ceo.find({$or:[{"street code1":0},{"street code2":0},{"course code":0}]}).count()
+
+
+db.ceo.aggregate(
+... [{$group:{_id:"$state", total:{$sum:1}}}]
+... )
+
+
+
+db.ceo.aggregate([
+... {$group:{_id:"$state", total:{$sum:1}}},
+... {$sort:{"total":-1}}
+... ])
+
+
+db.ceo.aggregate([
+... ... {$group:{_id:"$state", total:{$sum:1}}},
+... ... {$sort:{"total":-1}},
+... {$limit: 5}
+... ])
+
